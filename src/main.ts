@@ -17,8 +17,6 @@ async function bootstrap() {
   const swaggerOptions = configService.get<EnvSwaggerOptions>(
     'EnvSwaggerOptions',
   );
-  console.log('process.env', process.env);
-
   // 给请求添加prefix
   app.setGlobalPrefix(swaggerOptions.prefix);
 
@@ -29,7 +27,6 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  console.log('swaggerOptions.setupUrl', swaggerOptions.setupUrl);
 
   SwaggerModule.setup(swaggerOptions.setupUrl, app, document, {
     customSiteTitle: swaggerOptions.title,

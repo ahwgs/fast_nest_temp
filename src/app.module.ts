@@ -1,13 +1,22 @@
 import { Module } from '@nestjs/common';
 import * as Joi from 'joi';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { getDirAllFileNameArr } from '@/utils/get-dir-all-file-name-arr';
 import envSwaggerConfig from '@/config/env/swagger.config';
+import { pinoHttpOption } from '@/config/module/pino-http-option.config';
 const envPaths = getDirAllFileNameArr();
 @Module({
   imports: [
+    LoggerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return { pinoHttp: pinoHttpOption(configService.get('NODE_ENV')) };
+      },
+    }),
     ConfigModule.forRoot({
       encoding: 'utf-8',
       envFilePath: envPaths,
