@@ -3,7 +3,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-16 16:27:57
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-16 16:28:22
+ * @Last Modified time: 2020-11-16 17:29:37
  */
 import PinoHttp from 'pino-http';
 export function pinoHttpOption(envDevMode = 'development'): PinoHttp.Options {

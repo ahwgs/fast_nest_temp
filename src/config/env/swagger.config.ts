@@ -2,7 +2,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-16 14:50:29
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-16 15:19:38
+ * @Last Modified time: 2020-11-16 17:47:13
  */
 import { registerAs } from '@nestjs/config';
 const VERSION = process.env.npm_package_version;

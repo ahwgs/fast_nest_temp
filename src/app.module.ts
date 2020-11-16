@@ -4,10 +4,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { getDirAllFileNameArr } from '@/utils/get-dir-all-file-name-arr';
+import { initAppEnvFile } from '@/utils/get-dir-all-file-name-arr';
 import envSwaggerConfig from '@/config/env/swagger.config';
 import { pinoHttpOption } from '@/config/module/pino-http-option.config';
-const envPaths = getDirAllFileNameArr();
+
 @Module({
   imports: [
     LoggerModule.forRootAsync({
@@ -19,7 +19,7 @@ const envPaths = getDirAllFileNameArr();
     }),
     ConfigModule.forRoot({
       encoding: 'utf-8',
-      envFilePath: envPaths,
+      envFilePath: initAppEnvFile(),
       load: [envSwaggerConfig],
       expandVariables: true, // 开启嵌套变量
       ignoreEnvVars: true,

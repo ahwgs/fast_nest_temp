@@ -3,7 +3,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-16 14:43:45
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-16 14:45:30
+ * @Last Modified time: 2020-11-16 19:18:17
  */
 import * as fs from 'fs';
 import * as path from 'path';
@@ -40,8 +40,18 @@ export function getDirAllFileNameArr(options?: optionsType): string[] {
         }
       }
     }
+
     return results;
   } catch (error) {
     return results;
   }
+}
+
+/**
+ * 导出默认环境变量
+ */
+export function initAppEnvFile() {
+  const appStartEnv = process.env.APP_ENV || 'dev';
+  const allEnvs = getDirAllFileNameArr();
+  return allEnvs.filter((v) => v.includes(appStartEnv))[0];
 }

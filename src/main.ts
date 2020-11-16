@@ -60,6 +60,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
 
+  // console.log('环境', process.env);
+
   SwaggerModule.setup(swaggerOptions.setupUrl, app, document, {
     customSiteTitle: swaggerOptions.title,
     swaggerOptions: {
