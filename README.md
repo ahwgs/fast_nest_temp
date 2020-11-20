@@ -16,6 +16,24 @@
 - compression 服务端压缩中间件
 - express-rate-limit 请求次数限制
 
+### 约束
+
+- 接口返回值约束 `interface IHttpResponse`
+
+```json
+{
+  "result": null,
+  "message": "", // 消息提示，错误消息
+  "code": 0, // 业务状态码
+  "path": "/url", // 接口请求地址
+  "method": "GET", // 接口方法
+  "timestamp": 1 // 接口响应时间
+}
+```
+
+- 接口 `HttpExceptionFilter` 过滤器
+- 管道 `ParsePagePipe` 校验入参
+
 ### 常见问题
 
 - 关于环境变量
