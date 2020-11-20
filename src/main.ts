@@ -7,6 +7,7 @@ import { terminalHelpTextConsole } from '@/utils/terminal-help-text-console';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as rateLimit from 'express-rate-limit';
+import { HttpExceptionFilter } from '@/filters/http-exception.filter';
 /**
  * 　启动函数
  */
@@ -51,6 +52,9 @@ async function bootstrap() {
       max: 100, // limit each IP to 100 requests per windowMs
     }),
   );
+
+  // 全局注册错误的过滤器(错误异常)
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const options = new DocumentBuilder()
     .setTitle(swaggerOptions.title)
