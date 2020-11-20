@@ -1,4 +1,11 @@
-import { CommonText } from '@/shared/text';
+/*
+ * @Author: ahwgs
+ * @Date: 2020-11-20 20:04:41
+ * @Last Modified by:   ahwgs
+ * @Last Modified time: 2020-11-20 20:04:41
+ */
+
+import { CommonText } from '@/config/module/cmomon.text';
 import { ApiException } from '@/exception/api-exception';
 import { ApiCodeEnum } from '@/enum/api-code.enum';
 import {

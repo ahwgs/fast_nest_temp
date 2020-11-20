@@ -1,6 +1,6 @@
 import { ApiCodeEnum } from '@/enum/api-code.enum';
 import { ApiException } from '@/exception/api-exception';
-import { CommonText } from '@/shared/text';
+import { CommonText } from '@/config/module/cmomon.text';
 import { IHttpResponse } from '@/interfaces/http.interface';
 import {
   ArgumentsHost,

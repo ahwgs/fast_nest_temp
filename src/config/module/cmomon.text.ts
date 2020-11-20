@@ -1,3 +1,11 @@
+/*
+ * 公共文案
+ * @Author: ahwgs
+ * @Date: 2020-11-20 20:04:50
+ * @Last Modified by:   ahwgs
+ * @Last Modified time: 2020-11-20 20:04:50
+ */
+
 interface IText {
   [propName: string]: string;
 }
