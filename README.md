@@ -17,6 +17,7 @@
 - express-rate-limit 请求次数限制
 - typeorm 数据库 orm 框架
 - @nestjs/typeorm nest typeorm 集成
+- ejs 模版引擎
 
 ### 约束
 

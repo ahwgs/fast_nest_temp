@@ -8,12 +8,16 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as rateLimit from 'express-rate-limit';
 import { HttpExceptionFilter } from '@/filters/http-exception.filter';
+import * as path from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { renderFile } from 'ejs';
+
 /**
  * 　启动函数
  */
 async function bootstrap() {
   try {
-    const app = await NestFactory.create(AppModule, {
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
       logger: false,
     });
 
@@ -53,6 +57,11 @@ async function bootstrap() {
         max: 100, // limit each IP to 100 requests per windowMs
       }),
     );
+
+    app.useStaticAssets(path.join(__dirname, '..', 'public'));
+    app.setBaseViewsDir(path.join(__dirname, '..', 'views'));
+    app.engine('html', renderFile);
+    app.setViewEngine('ejs');
 
     // 全局注册错误的过滤器(错误异常)
     app.useGlobalFilters(new HttpExceptionFilter());
