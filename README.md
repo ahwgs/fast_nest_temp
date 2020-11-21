@@ -15,6 +15,8 @@
 - helmet 处理基础 web 漏洞
 - compression 服务端压缩中间件
 - express-rate-limit 请求次数限制
+- typeorm 数据库 orm 框架
+- @nestjs/typeorm nest typeorm 集成
 
 ### 约束
 

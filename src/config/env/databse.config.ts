@@ -3,7 +3,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-20 20:07:54
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-21 01:28:29
+ * @Last Modified time: 2020-11-21 12:55:33
  */
 
 import { registerAs } from '@nestjs/config';
@@ -44,20 +44,24 @@ export interface EnvDataBaseOptions {
   entities: any[];
 
   /**
-   * 日志是否开启
+   * 日志是否开启 执行sql语句时候输出原生sql
    */
   logging: string;
 
   /**
-   * 锁
+   * 是否同步true表示会自动将src/entity里面定义的数据模块同步到数据库生成数据表(已经存在的表的时候再运行会报错)
    */
   synchronize: string;
+  /**
+   * 实体表 公共前缀
+   */
+  entityPrefix: string;
 }
 
 const entitiesPath =
   process.env.NODE_ENV === 'production'
     ? path.resolve('./**/*.entity.js')
-    : path.resolve('./**/*.entity.ts');
+    : path.join(__dirname, './**/*.entity.ts');
 
 export default registerAs(
   'EnvDataBaseOptions',
@@ -71,5 +75,6 @@ export default registerAs(
     entities: [entitiesPath],
     logging: process.env.DB_LOGGING,
     synchronize: process.env.DB_SYNCHRONIZE,
+    entityPrefix: process.env.DB_TABLE_PREFIX,
   }),
 );

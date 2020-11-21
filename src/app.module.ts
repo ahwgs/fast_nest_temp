@@ -15,26 +15,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const dataBaseOptions = configService.get<EnvDataBaseOptions>(
-          'EnvDataBaseOptions',
-        );
-        return {
-          type: dataBaseOptions.type,
-          host: dataBaseOptions.host,
-          port: dataBaseOptions.port as number,
-          username: dataBaseOptions.username,
-          password: dataBaseOptions.password,
-          database: dataBaseOptions.database,
-          entities: dataBaseOptions.entities,
-          synchronize: dataBaseOptions.synchronize === '1',
-          logging: dataBaseOptions.logging === '1',
-        };
-      },
-    }),
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -66,12 +46,34 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         DB_PASSWORD: Joi.string().default(''),
         DB_SYNCHRONIZE: Joi.string().default('1'), // 1 true 0 false
         DB_LOGGING: Joi.string().default('1'), // 1 true 0 false
+        DB_TABLE_PREFIX: Joi.string().default('t_'), // 1 true 0 false
         validationOptions: {
           allowUnknown: false, // 控制是否允许环境变量中未知的键。默认为true。
           abortEarly: true, // 如果为true，在遇到第一个错误时就停止验证；如果为false，返回所有错误。默认为false。
         },
       }),
     }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: (configService: ConfigService) => {
+    //     const dataBaseOptions = configService.get<EnvDataBaseOptions>(
+    //       'EnvDataBaseOptions',
+    //     );
+    //     return {
+    //       type: dataBaseOptions.type,
+    //       host: dataBaseOptions.host,
+    //       port: dataBaseOptions.port as number,
+    //       username: dataBaseOptions.username,
+    //       password: dataBaseOptions.password,
+    //       database: dataBaseOptions.database,
+    //       entities: dataBaseOptions.entities,
+    //       synchronize: dataBaseOptions.synchronize === '1',
+    //       logging: dataBaseOptions.logging === '1',
+    //       entityPrefix: dataBaseOptions.entityPrefix,
+    //     };
+    //   },
+    // }),
   ],
   controllers: [AppController],
   providers: [AppService],
