@@ -2,7 +2,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-25 21:32:23
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-25 23:18:59
+ * @Last Modified time: 2020-11-26 00:46:54
  */
 import * as Path from 'path';
 import * as Log4js from 'log4js';
@@ -11,6 +11,7 @@ import * as moment from 'moment'; // 处理时间的工具
 import * as StackTrace from 'stacktrace-js';
 import Chalk from 'chalk';
 import log4jsConfig from '@/config/module/log4js';
+import { LoggerService } from '@nestjs/common';
 
 // 日志级别
 export enum LoggerLevel {
@@ -106,7 +107,17 @@ Log4js.configure(log4jsConfig);
 const logger = Log4js.getLogger();
 logger.level = LoggerLevel.TRACE;
 
-export class Logger {
+export class Logger implements LoggerService {
+  log(...args) {
+    logger.info(Logger.getStackTrace(), ...args);
+  }
+  error(message: string, trace: string, ...args) {
+    logger.error(message, trace, ...args);
+  }
+  warn(...args) {
+    logger.warn(Logger.getStackTrace(), ...args);
+  }
+
   static trace(...args) {
     logger.trace(Logger.getStackTrace(), ...args);
   }

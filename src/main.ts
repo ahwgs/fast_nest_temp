@@ -19,7 +19,9 @@ import { Logger } from '@/utils/log4js';
  */
 async function bootstrap() {
   try {
-    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+      logger: new Logger(),
+    });
 
     // app.use(logger);
 
