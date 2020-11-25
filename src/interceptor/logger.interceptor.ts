@@ -21,22 +21,17 @@ export class LoggingInterceptor implements NestInterceptor {
       tap((res) => {
         // 系统错误的进错误日志
         // 其他的都进access
-        Logger.access(
-          `method:${method} httpstatusCode:${status} originUrl:${url} responseTime:${
-            Date.now() - now
-          }ms`,
-          context.getClass().name,
-        );
-        Logger.access(
-          `req header:${JSON.stringify(
-            request.headers,
-          )} req query:${JSON.stringify(
-            request.query,
-          )} req body:${JSON.stringify(request.body)} res:${JSON.stringify(
-            res,
-          )} res :${response}`,
-          context.getClass().name,
-        );
+        const log = {
+          statusCode: status,
+          responseTime: `${Date.now() - now}ms`,
+          ip: request.ip,
+          header: request.headers,
+          query: request.query,
+          params: request.params,
+          body: request.body,
+          response: res,
+        };
+        Logger.access(JSON.stringify(log), `${context.getClass().name}`);
       }),
       catchError((err) => {
         Logger.error(err);

@@ -2,7 +2,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-25 21:32:23
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-26 00:46:54
+ * @Last Modified time: 2020-11-26 01:20:20
  */
 import * as Path from 'path';
 import * as Log4js from 'log4js';
@@ -150,9 +150,9 @@ export class Logger implements LoggerService {
     logger.fatal(Logger.getStackTrace(), ...args);
   }
 
-  static access(...args) {
+  static access(message: string, ...args) {
     const loggerCustom = Log4js.getLogger('http');
-    loggerCustom.info(Logger.getStackTrace(), ...args);
+    loggerCustom.info(message, ...args);
   }
 
   // 日志追踪，可以追溯到哪个文件、第几行第几列
