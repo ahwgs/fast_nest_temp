@@ -74,3 +74,13 @@
 - 生产环境如何设置环境变量
 
   复制根目录下`default.local.env` 文件至`config/env/`目录下，修改相应配置为生产环境配置
+
+- 使用 log4js 作为默认日志库
+
+```typescript
+const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+  logger: new Logger(),
+});
+```
+
+通过重写`LoggerService`上的相关方法，实现 `Nest` 日志自定义
