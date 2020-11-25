@@ -3,11 +3,10 @@
  * @Author: ahwgs
  * @Date: 2020-11-20 20:05:46
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-21 14:39:33
+ * @Last Modified time: 2020-11-26 00:11:19
  */
 
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
 @Entity({ name: 'user' })
 export class UserEntity {
   @PrimaryGeneratedColumn({
@@ -24,13 +23,4 @@ export class UserEntity {
     default: '',
   })
   account: string;
-
-  @Column({
-    type: 'varchar',
-    name: 'account_type',
-    comment: '账号类型',
-    default: '1',
-    enum: ['1', '2', '3'],
-  })
-  accountType: string;
 }

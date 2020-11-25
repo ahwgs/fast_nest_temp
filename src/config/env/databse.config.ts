@@ -3,7 +3,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-20 20:07:54
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-21 16:46:43
+ * @Last Modified time: 2020-11-26 00:09:00
  */
 
 import { registerAs } from '@nestjs/config';
@@ -57,7 +57,8 @@ export interface EnvDataBaseOptions {
   entityPrefix: string;
 }
 
-const entitiesPath = path.resolve('src/**/*.entity.{ts,js}');
+// 实体文件应该使用js
+const entitiesPath = path.resolve('./**/*.entity.js');
 
 export default registerAs(
   'EnvDataBaseOptions',

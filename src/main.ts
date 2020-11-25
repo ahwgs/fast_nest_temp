@@ -12,6 +12,7 @@ import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { renderFile } from 'ejs';
 import { TransformInterceptor } from '@/interceptor/transform.interceptor';
+import { Logger } from '@/utils/log4js';
 
 /**
  * 　启动函数
@@ -77,8 +78,6 @@ async function bootstrap() {
       .build();
     const document = SwaggerModule.createDocument(app, options);
 
-    console.log('环境', process.env);
-
     SwaggerModule.setup(swaggerOptions.setupUrl, app, document, {
       customSiteTitle: swaggerOptions.title,
       swaggerOptions: {
@@ -103,4 +102,5 @@ bootstrap()
   })
   .catch((e) => {
     console.log(e);
+    Logger.error(e);
   });

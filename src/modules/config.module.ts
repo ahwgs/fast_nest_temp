@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { initAppEnvFile } from '@/utils/get-dir-all-file-name-arr';
 import envSwaggerConfig from '@/config/env/swagger.config';
-import envDataBaseConfig, {
-  EnvDataBaseOptions,
-} from '@/config/env/databse.config';
+import envDataBaseConfig from '@/config/env/databse.config';
 import * as Joi from 'joi';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
