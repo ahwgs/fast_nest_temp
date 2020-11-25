@@ -17,6 +17,10 @@ export enum ApiCodeEnum {
    */
   WARN = 3000,
   /**
+   * 系统错误
+   */
+  SYSTEM_ERROR = 4000,
+  /**
    * 需要登录
    */
   SHOULD_LOGIN = 4001,

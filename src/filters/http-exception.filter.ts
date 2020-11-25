@@ -2,6 +2,7 @@ import { ApiCodeEnum } from '@/enum/api-code.enum';
 import { ApiException } from '@/exception/api-exception';
 import { CommonText } from '@/config/module/cmomon.text';
 import { IHttpResponse } from '@/interfaces/http.interface';
+
 import {
   ArgumentsHost,
   Catch,
@@ -43,9 +44,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
         path,
         method,
         timestamp,
-        code: ApiCodeEnum.ERROR,
+        code: ApiCodeEnum.SYSTEM_ERROR,
       };
     }
+
     response.status(HttpStatus.OK);
     response.header('Content-Type', 'application/json; charset=utf-8');
     response.send(errorResponse);

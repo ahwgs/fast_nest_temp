@@ -11,7 +11,7 @@
 - @nestjs/swagger 生成接口文档
 - swagger-ui-express 装@nestjs/swagger 必装的包 处理接口文档样式
 - joi 校验参数
-- nestjs-pino 日志处理
+- log4js 日志处理
 - helmet 处理基础 web 漏洞
 - compression 服务端压缩中间件
 - express-rate-limit 请求次数限制
@@ -36,6 +36,26 @@
 
 - 接口 `HttpExceptionFilter` 过滤器
 - 管道 `ParsePagePipe` 校验入参
+
+- 业务状态码与`Http StatusCode`约定
+
+无论接口是否异常或错误，`Http StatusCode`都为`200`
+
+### 过滤器
+
+- `HttpExceptionFilter` 异常过滤器
+
+默认处理所有异常，返回`Http StatusCode`都为 200
+
+### 拦截器
+
+- `LoggingInterceptor` 日志拦截器
+
+处理日志，结合`log4js`使用
+
+- `TransformInterceptor` 数据转换拦截器
+
+处理返回结果
 
 ### 常见问题
 

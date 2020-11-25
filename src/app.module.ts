@@ -1,27 +1,41 @@
+import { LoggingInterceptor } from '@/interceptor/logger.interceptor';
+import { UserModule } from '@/modules/user.module';
 import { Module } from '@nestjs/common';
 import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { initAppEnvFile } from '@/utils/get-dir-all-file-name-arr';
 import envSwaggerConfig from '@/config/env/swagger.config';
 import envDataBaseConfig, {
   EnvDataBaseOptions,
 } from '@/config/env/databse.config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
-import { pinoHttpOption } from '@/config/module/pino-http-option.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    LoggerModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        return { pinoHttp: pinoHttpOption(configService.get('NODE_ENV')) };
-      },
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: (configService: ConfigService) => {
+    //     const dataBaseOptions = configService.get<EnvDataBaseOptions>(
+    //       'EnvDataBaseOptions',
+    //     );
+    //     return {
+    //       type: dataBaseOptions.type,
+    //       host: dataBaseOptions.host,
+    //       port: dataBaseOptions.port as number,
+    //       username: dataBaseOptions.username,
+    //       password: dataBaseOptions.password,
+    //       database: dataBaseOptions.database,
+    //       entities: dataBaseOptions.entities,
+    //       synchronize: dataBaseOptions.synchronize === '1',
+    //       logging: dataBaseOptions.logging === '1',
+    //       entityPrefix: dataBaseOptions.entityPrefix,
+    //     };
+    //   },
+    // }),
     ConfigModule.forRoot({
       encoding: 'utf-8',
       envFilePath: initAppEnvFile(),
@@ -53,29 +67,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         },
       }),
     }),
-    // TypeOrmModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject: [ConfigService],
-    //   useFactory: (configService: ConfigService) => {
-    //     const dataBaseOptions = configService.get<EnvDataBaseOptions>(
-    //       'EnvDataBaseOptions',
-    //     );
-    //     return {
-    //       type: dataBaseOptions.type,
-    //       host: dataBaseOptions.host,
-    //       port: dataBaseOptions.port as number,
-    //       username: dataBaseOptions.username,
-    //       password: dataBaseOptions.password,
-    //       database: dataBaseOptions.database,
-    //       entities: dataBaseOptions.entities,
-    //       synchronize: dataBaseOptions.synchronize === '1',
-    //       logging: dataBaseOptions.logging === '1',
-    //       entityPrefix: dataBaseOptions.entityPrefix,
-    //     };
-    //   },
-    // }),
+    // UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor, // 定义日志拦截器
+    },
+  ],
 })
 export class AppModule {}

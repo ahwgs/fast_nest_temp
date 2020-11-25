@@ -11,15 +11,16 @@ import { HttpExceptionFilter } from '@/filters/http-exception.filter';
 import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { renderFile } from 'ejs';
+import { TransformInterceptor } from '@/interceptor/transform.interceptor';
 
 /**
  * 　启动函数
  */
 async function bootstrap() {
   try {
-    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      logger: false,
-    });
+    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+    // app.use(logger);
 
     const configService = app.get(ConfigService);
     const swaggerOptions = configService.get<EnvSwaggerOptions>(
@@ -65,6 +66,8 @@ async function bootstrap() {
 
     // 全局注册错误的过滤器(错误异常)
     app.useGlobalFilters(new HttpExceptionFilter());
+
+    app.useGlobalInterceptors(new TransformInterceptor());
 
     const options = new DocumentBuilder()
       .setTitle(swaggerOptions.title)

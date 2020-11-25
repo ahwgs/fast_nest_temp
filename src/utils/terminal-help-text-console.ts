@@ -2,10 +2,10 @@
  * @Author: ahwgs
  * @Date: 2020-11-16 15:17:26
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-16 17:11:18
+ * @Last Modified time: 2020-11-25 23:13:47
  */
 import { BannerLog } from '@/config/module/get-banner';
-import * as chalk from 'chalk';
+import { Logger } from './log4js';
 
 type paramType = {
   Port: string | number;
@@ -24,13 +24,7 @@ const defaultParam: paramType = {
  */
 export function terminalHelpTextConsole(params = defaultParam): void {
   const Host = `http://localhost`;
-  console.log(BannerLog);
-  console.log(
-    chalk.red.bold('Swagger文档链接:'.padStart(5)),
-    chalk.green.underline(`${Host}:${params.Port}/${params.DocUrl}`),
-  );
-  console.log(
-    chalk.red.bold('Restful接口链接:'.padStart(5)),
-    chalk.green.underline(`${Host}:${params.Port}/${params.ApiPrefix}`),
-  );
+  Logger.log(BannerLog);
+  Logger.log('Swagger文档链接:', `${Host}:${params.Port}/${params.DocUrl}`);
+  Logger.log('Restful接口链接:', `${Host}:${params.Port}/${params.ApiPrefix}`);
 }

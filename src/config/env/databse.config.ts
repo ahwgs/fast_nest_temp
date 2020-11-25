@@ -3,12 +3,11 @@
  * @Author: ahwgs
  * @Date: 2020-11-20 20:07:54
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-21 12:55:33
+ * @Last Modified time: 2020-11-21 16:46:43
  */
 
 import { registerAs } from '@nestjs/config';
 import * as path from 'path';
-
 export type DataBaseType = 'mysql' | 'mariadb';
 
 export interface EnvDataBaseOptions {
@@ -58,10 +57,7 @@ export interface EnvDataBaseOptions {
   entityPrefix: string;
 }
 
-const entitiesPath =
-  process.env.NODE_ENV === 'production'
-    ? path.resolve('./**/*.entity.js')
-    : path.join(__dirname, './**/*.entity.ts');
+const entitiesPath = path.resolve('src/**/*.entity.{ts,js}');
 
 export default registerAs(
   'EnvDataBaseOptions',
