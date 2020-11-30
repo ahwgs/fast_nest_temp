@@ -1,5 +1,5 @@
-import { ApiCodeEnum } from './../enum/api-code.enum';
-import { THttpResponse } from '@/interfaces/http.interface';
+import { ApiCodeEnum } from '@/enum';
+import { THttpResponse } from '@/interfaces';
 import {
   CallHandler,
   ExecutionContext,

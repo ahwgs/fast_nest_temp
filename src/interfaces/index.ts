@@ -3,7 +3,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-16 19:51:50
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-16 23:17:44
+ * @Last Modified time: 2020-11-30 14:05:18
  */
 
-export * as HttpInterface from './http.interface';
+export * from './http.interface';

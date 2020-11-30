@@ -1,4 +1,4 @@
-import { UserEntity } from '@/entities/user.entity';
+import { UserEntity } from '@/entities';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
  * @Author: ahwgs
  * @Date: 2020-11-21 14:46:51
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-21 14:51:05
+ * @Last Modified time: 2020-11-30 14:08:24
  */
 
 @Injectable()

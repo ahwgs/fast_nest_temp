@@ -1,4 +1,4 @@
-import { ApiCodeEnum } from '@/enum/api-code.enum';
+import { ApiCodeEnum } from '@/enum';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 /**

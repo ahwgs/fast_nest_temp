@@ -1,10 +1,8 @@
-import { DataBaseModule } from '@/modules/database.module';
-import { LoggingInterceptor } from '@/interceptor/logger.interceptor';
-import { UserModule } from '@/modules/user.module';
+import { LoggingInterceptor } from '@/interceptor';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { CustomConfigModule } from './modules/config.module';
+import { DataBaseModule, CustomConfigModule, UserModule } from '@/modules';
 
 @Module({
   imports: [CustomConfigModule, DataBaseModule, UserModule],

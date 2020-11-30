@@ -1,7 +1,7 @@
-import { ApiCodeEnum } from '@/enum/api-code.enum';
+import { ApiCodeEnum } from '@/enum';
 import { ApiException } from '@/exception/api-exception';
-import { CommonText } from '@/config/module/cmomon.text';
-import { IHttpResponse } from '@/interfaces/http.interface';
+import { CommonText } from '@/config';
+import { IHttpResponse } from '@/interfaces';
 
 import {
   ArgumentsHost,

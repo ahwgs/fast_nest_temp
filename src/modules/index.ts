@@ -5,6 +5,6 @@
  * @Last Modified time: 2020-11-25 23:54:35
  */
 
-export * as UserModule from './user.module';
-export * as CustomConfigModule from './config.module';
-export * as DataBaseModule from './database.module';
+export * from './user.module';
+export * from './config.module';
+export * from './database.module';

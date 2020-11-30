@@ -3,10 +3,10 @@
  * @Author: ahwgs
  * @Date: 2020-11-20 20:05:46
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-26 18:52:48
+ * @Last Modified time: 2020-11-30 14:08:31
  */
 
-import { AccountEnum, SexEnum } from '@/enum/user.enum';
+import { AccountEnum, SexEnum } from '@/enum';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 @Entity({ name: 'user' })
