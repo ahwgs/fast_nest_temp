@@ -55,7 +55,12 @@
 
 - `TransformInterceptor` 数据转换拦截器
 
-处理返回结果
+处理返回结果,返回结果如`THttpResponse`
+
+### 日志处理
+
+- 默认输出 `logs/access logs/app-out logs/errors`
+- 可修改 `module/log4js` 下配置
 
 ### 常见问题
 

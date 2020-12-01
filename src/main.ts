@@ -11,7 +11,7 @@ import { HttpExceptionFilter } from '@/filters';
 import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { renderFile } from 'ejs';
-import { TransformInterceptor } from '@/interceptor';
+import { TransformInterceptor, LoggingInterceptor } from '@/interceptor';
 import { Logger } from '@/utils/log4js';
 
 /**
@@ -63,14 +63,17 @@ async function bootstrap() {
     );
 
     app.useStaticAssets(path.join(__dirname, '..', 'public'));
-    app.setBaseViewsDir(path.join(__dirname, '..', 'views'));
+    app.setBaseViewsDir(path.join(__dirname, '..', 'public/views'));
     app.engine('html', renderFile);
     app.setViewEngine('ejs');
 
     // 全局注册错误的过滤器(错误异常)
     app.useGlobalFilters(new HttpExceptionFilter());
 
-    app.useGlobalInterceptors(new TransformInterceptor());
+    app.useGlobalInterceptors(
+      new TransformInterceptor(),
+      new LoggingInterceptor(),
+    );
 
     const options = new DocumentBuilder()
       .setTitle(swaggerOptions.title)
@@ -93,6 +96,7 @@ async function bootstrap() {
         },
       },
     });
+
     await app.listen(configService.get('SERVE_LISTENER_PORT'));
   } catch (err) {
     throw err;

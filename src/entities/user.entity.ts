@@ -3,7 +3,7 @@
  * @Author: ahwgs
  * @Date: 2020-11-20 20:05:46
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-30 14:08:31
+ * @Last Modified time: 2020-11-30 14:36:02
  */
 
 import { AccountEnum, SexEnum } from '@/enum';
@@ -44,4 +44,7 @@ export class UserEntity extends BaseEntity {
     comment: '性别',
   })
   sex: SexEnum;
+
+  @Column()
+  passwordSalt: string;
 }
