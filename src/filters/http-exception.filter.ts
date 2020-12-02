@@ -23,7 +23,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const path = request.url;
     const method = request.method;
     const result = null;
-
     if (exception instanceof ApiException) {
       const message = exception.getErrorMessage();
       errorResponse = {
@@ -44,7 +43,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         path,
         method,
         timestamp,
-        code: ApiCodeEnum.SYSTEM_ERROR,
+        code: ApiCodeEnum.ERROR,
       };
     }
 

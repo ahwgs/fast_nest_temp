@@ -13,6 +13,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { renderFile } from 'ejs';
 import { TransformInterceptor, LoggingInterceptor } from '@/interceptor';
 import { Logger } from '@/utils/log4js';
+import { ValidationPipe } from '@/pipes';
 
 /**
  * 　启动函数
@@ -70,10 +71,14 @@ async function bootstrap() {
     // 全局注册错误的过滤器(错误异常)
     app.useGlobalFilters(new HttpExceptionFilter());
 
+    // 全局注册拦截器
     app.useGlobalInterceptors(
       new TransformInterceptor(),
       new LoggingInterceptor(),
     );
+
+    // 全局注册管道
+    app.useGlobalPipes(new ValidationPipe());
 
     const options = new DocumentBuilder()
       .setTitle(swaggerOptions.title)

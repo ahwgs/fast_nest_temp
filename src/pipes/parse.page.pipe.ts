@@ -1,8 +1,8 @@
 /*
  * @Author: ahwgs
  * @Date: 2020-11-20 20:04:41
- * @Last Modified by:   ahwgs
- * @Last Modified time: 2020-11-20 20:04:41
+ * @Last Modified by: ahwgs
+ * @Last Modified time: 2020-12-02 10:15:08
  */
 
 import { CommonText } from '@/config/module/cmomon.text';
@@ -23,7 +23,7 @@ export class ParsePagePipe implements PipeTransform {
     if (isNaN(val) || typeof val !== 'number' || val <= 0) {
       throw new ApiException(
         `${key} ${CommonText.PARAMES_MUST_NUM}:${value}`,
-        ApiCodeEnum.ERROR,
+        ApiCodeEnum.WARN,
         HttpStatus.OK,
       );
     }
