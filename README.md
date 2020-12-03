@@ -19,6 +19,9 @@
 - @nestjs/typeorm nest typeorm 集成
 - ejs 模版引擎
 - class-validator 校验参数
+- ioredis redis 客户端
+- nestjs-redis nest redis 配置模块
+- uuid uuid 生成器
 
 ### 约束
 
