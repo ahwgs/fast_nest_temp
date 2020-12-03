@@ -1,6 +1,6 @@
+import { DelEnum, StatusEnum } from '@/enum/common.enum';
 import { RedisTemp } from '@/config/module/redis-temp';
 import { RedisCacheService } from '@/services/common/redis/redis.cache.service';
-import { DelEnum } from '@/enum/common.enum';
 import { UserEntity } from '@/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,15 +12,15 @@ import { ApiCodeEnum } from '@/enum/api-code.enum';
 import * as bcrypt from 'bcrypt';
 import { getUUID } from '@/utils/common';
 import { Logger } from '@/utils/log4js';
-import { AccountEnum } from '@/enum/user.enum';
 import { IToken } from '@/interfaces/user.interface';
 import { JwtService } from '@/services/common/jwt/jwt.service';
+import { UserCodeEntity } from '@/entities/user-code.entity';
 /*
  * 用户模块服务类
  * @Author: ahwgs
  * @Date: 2020-11-21 14:46:51
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-04 00:20:11
+ * @Last Modified time: 2020-12-04 00:57:22
  */
 
 @Injectable()
@@ -28,6 +28,8 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
+    @InjectRepository(UserCodeEntity)
+    private readonly usersCodeResp: Repository<UserCodeEntity>,
     private readonly imageCaptchaService: ImageCaptchaService,
     private readonly redisService: RedisCacheService,
     private readonly jwt: JwtService,
@@ -110,6 +112,24 @@ export class UserService {
     };
   }
 
+  private async findUserCode(code: string, account: string) {
+    // 验证码表 没被使用的
+    const result = await this.usersCodeResp.findOne({
+      where: {
+        account,
+        code,
+        isDel: DelEnum.N,
+        status: StatusEnum.N,
+      },
+    });
+    // 如果验证码查出有 需要改状态
+    if (result) {
+      result.status = StatusEnum.Y;
+      this.usersCodeResp.save(result);
+    }
+    return result;
+  }
+
   /**
    * 注册
    * @param RegisterDTO 注册参数
@@ -117,11 +137,11 @@ export class UserService {
   public async register(body: RegisterDTO) {
     const { account, accountType, password, code } = body;
 
-    // 根据accountType 校验验证码
-    if (accountType === AccountEnum.EMAIL) {
-    } else if (accountType === AccountEnum.TEL) {
+    // 根据code 校验验证码
+    const checkCode = await this.findUserCode(code, account);
+    if (!checkCode) {
+      throw new ApiException('验证码已失效', ApiCodeEnum.ERROR);
     }
-
     // 校验账户是否存在
     const check = await this.findUser(account, accountType);
     if (check) {

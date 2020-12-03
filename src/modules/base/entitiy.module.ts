@@ -1,7 +1,8 @@
+import { UserCodeEntity } from '@/entities/user-code.entity';
 import { UserEntity } from '@/entities/user.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-const entityList = [UserEntity];
+const entityList = [UserEntity, UserCodeEntity];
 
 @Module({
   imports: [TypeOrmModule.forFeature(entityList)],
