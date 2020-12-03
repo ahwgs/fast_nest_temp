@@ -7,7 +7,8 @@
 
 import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-export class RegisterDTO {
+
+export class UserAccountDTO {
   @ApiProperty({
     name: 'account',
   })
@@ -33,7 +34,8 @@ export class RegisterDTO {
     },
   )
   readonly accountType: number;
-
+}
+export class LoginDTO extends UserAccountDTO {
   @ApiProperty({
     name: 'code',
   })
@@ -47,4 +49,13 @@ export class RegisterDTO {
   @IsNotEmpty({ message: '图形验证码唯一id不能为空' })
   @IsUUID(4, { message: 'codeId不是UUID' })
   readonly codeId: string;
+}
+
+export class RegisterDTO extends UserAccountDTO {
+  @ApiProperty({
+    name: 'code',
+  })
+  @IsNotEmpty({ message: '验证码不能为空' })
+  @IsString({ message: '验证码必须是 String 类型' })
+  readonly code: string;
 }

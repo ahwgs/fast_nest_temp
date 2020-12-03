@@ -1,4 +1,4 @@
-import { RegisterDTO } from '@/dtos/user/user.dto';
+import { RegisterDTO, LoginDTO } from '@/dtos/user/user.dto';
 import { UserService } from '@/services/user/user.service';
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
@@ -28,5 +28,11 @@ export class UserController {
   @Get('captcha')
   async imgCaptcha() {
     return this.userService.createImgCaptcha();
+  }
+
+  @ApiOperation({ summary: '登录', description: '账号登录' })
+  @Post('login')
+  async login(@Body() body: LoginDTO) {
+    return this.userService.login(body);
   }
 }
