@@ -2,9 +2,9 @@
  * @Author: ahwgs
  * @Date: 2020-11-16 15:17:26
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-11-30 14:52:15
+ * @Last Modified time: 2020-12-03 13:47:26
  */
-import { BannerLog } from '@/config';
+import { BannerLog } from '@/config/module/get-banner';
 import { Logger } from './log4js';
 
 type paramType = {

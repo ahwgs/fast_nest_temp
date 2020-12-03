@@ -1,3 +1,4 @@
+import { DelEnum } from '@/enum/common.enum';
 import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
@@ -16,13 +17,15 @@ export class PublicEntity extends BaseEntity {
   id: number;
 
   @Exclude() // 表示排除字段不返回给前端
-  @Column('tinyint', {
+  @Column({
     nullable: false,
-    default: () => 0,
     name: 'is_del',
+    type: 'enum',
+    enum: DelEnum,
+    default: DelEnum.N,
     comment: '是否删除,1表示删除,0表示正常',
   })
-  isDel: number;
+  isDel: DelEnum;
 
   @CreateDateColumn({
     type: 'timestamp',

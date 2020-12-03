@@ -1,14 +1,14 @@
 import { PublicEntity } from './public.entity';
-import { AccountEnum, SexEnum } from '@/enum';
 import { Column, Entity } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { AccountEnum, SexEnum } from '@/enum/user.enum';
 
 /*
  * 用户实体类
  * @Author: ahwgs
  * @Date: 2020-11-20 20:05:46
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-01 14:25:30
+ * @Last Modified time: 2020-12-03 13:56:07
  */
 
 @Entity({ name: 'user' })

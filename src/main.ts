@@ -1,19 +1,20 @@
+import { LoggingInterceptor } from '@/interceptor/logger.interceptor';
+import { TransformInterceptor } from '@/interceptor/transform.interceptor';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { EnvSwaggerOptions } from '@/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { terminalHelpTextConsole } from '@/utils';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as rateLimit from 'express-rate-limit';
-import { HttpExceptionFilter } from '@/filters';
 import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { renderFile } from 'ejs';
-import { TransformInterceptor, LoggingInterceptor } from '@/interceptor';
 import { Logger } from '@/utils/log4js';
-import { ValidationPipe } from '@/pipes';
+import { EnvSwaggerOptions } from '@/config/env/swagger.config';
+import { HttpExceptionFilter } from '@/filters/http-exception.filter';
+import { ValidationPipe } from '@/pipes/validation.pipe';
+import { terminalHelpTextConsole } from '@/utils/terminal-help-text-console';
 
 /**
  * 　启动函数

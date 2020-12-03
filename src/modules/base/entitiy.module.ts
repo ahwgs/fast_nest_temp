@@ -1,4 +1,4 @@
-import { UserEntity } from '@/entities';
+import { UserEntity } from '@/entities/user.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 const entityList = [UserEntity];

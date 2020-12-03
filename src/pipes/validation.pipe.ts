@@ -2,7 +2,7 @@
  * @Author: ahwgs
  * @Date: 2020-12-02 10:22:19
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-02 11:19:15
+ * @Last Modified time: 2020-12-03 13:48:40
  */
 
 import {
@@ -14,7 +14,7 @@ import {
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { ApiException } from '@/exception/api-exception';
-import { ApiCodeEnum } from '@/enum';
+import { ApiCodeEnum } from '@/enum/api-code.enum';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
