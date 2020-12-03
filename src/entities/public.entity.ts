@@ -18,14 +18,13 @@ export class PublicEntity extends BaseEntity {
 
   @Exclude() // 表示排除字段不返回给前端
   @Column({
+    type: 'tinyint',
     nullable: false,
     name: 'is_del',
-    type: 'enum',
-    enum: DelEnum,
     default: DelEnum.N,
     comment: '是否删除,1表示删除,0表示正常',
   })
-  isDel: DelEnum;
+  isDel: number;
 
   @CreateDateColumn({
     type: 'timestamp',

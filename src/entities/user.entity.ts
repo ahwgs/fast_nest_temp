@@ -8,7 +8,7 @@ import { AccountEnum, SexEnum } from '@/enum/user.enum';
  * @Author: ahwgs
  * @Date: 2020-11-20 20:05:46
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-03 13:56:07
+ * @Last Modified time: 2020-12-03 16:30:40
  */
 
 @Entity({ name: 'user' })
@@ -33,22 +33,28 @@ export class UserEntity extends PublicEntity {
   password: string;
 
   @Column({
-    type: 'enum',
-    enum: AccountEnum,
+    type: 'tinyint',
     default: AccountEnum.EMAIL,
-    comment: '账号类型',
+    comment: '账号类型 0：邮箱 1:手机号',
+    name: 'account_type',
+    nullable: false,
   })
-  accountType: AccountEnum;
+  accountType: number;
 
   @Column({
-    type: 'enum',
-    enum: SexEnum,
+    type: 'tinyint',
     default: SexEnum.UNKWON,
-    comment: '性别',
+    nullable: false,
+    comment: '性别 0:男 1:女 2：未知',
   })
-  sex: SexEnum;
+  sex: number;
 
   @Exclude() // 表示排除字段不返回给前端
-  @Column()
+  @Column({
+    name: 'password_slat',
+    comment: '密码盐',
+    type: 'varchar',
+    nullable: false,
+  })
   passwordSalt: string;
 }

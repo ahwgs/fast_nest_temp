@@ -1,6 +1,6 @@
 import { RegisterDTO } from '@/dtos/user/user.dto';
 import { UserService } from '@/services/user/user.service';
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
 /*
@@ -8,7 +8,7 @@ import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
  * @Author: ahwgs
  * @Date: 2020-11-21 14:46:44
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-03 13:56:26
+ * @Last Modified time: 2020-12-03 16:59:51
  */
 
 @ApiBearerAuth()
@@ -22,5 +22,11 @@ export class UserController {
   @Post('register')
   async register(@Body() body: RegisterDTO) {
     return this.userService.register(body);
+  }
+
+  @ApiOperation({ summary: '图形验证码', description: '账号注册' })
+  @Get('captcha')
+  async imgCaptcha() {
+    return this.userService.createImgCaptcha();
   }
 }

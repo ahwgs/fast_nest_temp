@@ -18,6 +18,7 @@
 - typeorm 数据库 orm 框架
 - @nestjs/typeorm nest typeorm 集成
 - ejs 模版引擎
+- class-validator 校验参数
 
 ### 约束
 
@@ -35,11 +36,14 @@
 ```
 
 - 接口 `HttpExceptionFilter` 过滤器
-- 管道 `ParsePagePipe` 校验入参
-
 - 业务状态码与`Http StatusCode`约定
 
 无论接口是否异常或错误，`Http StatusCode`都为`200`
+
+### 管道
+
+- 管道 `ParsePagePipe` 校验分页入参
+- 管道 `ValidationPipe` 结合 `DTO` 校验入参
 
 ### 过滤器
 

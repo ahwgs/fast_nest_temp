@@ -15,6 +15,7 @@ export class ImageCaptchaService {
       height: 34,
       ignoreChars: '0o1i',
       background: '#01458E',
+      inverse: false,
     });
     return captcha;
   }

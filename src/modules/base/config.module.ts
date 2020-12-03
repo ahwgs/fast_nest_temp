@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { initAppEnvFile } from '@/utils/get-dir-all-file-name-arr';
 import envSwaggerConfig from '@/config/env/swagger.config';
 import envDataBaseConfig from '@/config/env/databse.config';
+import envRedisConfig from '@/config/env/redis.config';
 import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 @Module({
@@ -9,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       encoding: 'utf-8',
       envFilePath: initAppEnvFile(),
-      load: [envSwaggerConfig, envDataBaseConfig],
+      load: [envSwaggerConfig, envDataBaseConfig, envRedisConfig],
       expandVariables: true, // 开启嵌套变量
       ignoreEnvVars: true,
       validationSchema: Joi.object({
@@ -31,6 +32,9 @@ import { ConfigModule } from '@nestjs/config';
         DB_SYNCHRONIZE: Joi.string().default('1'), // 1 true 0 false
         DB_LOGGING: Joi.string().default('1'), // 1 true 0 false
         DB_TABLE_PREFIX: Joi.string().default('t_'), // 1 true 0 false
+        REDIS_HOST: Joi.string().default('localhost'), // 1 true 0 false
+        REDIS_PORT: Joi.number().default(6379),
+        REDIS_PASSWORD: Joi.string().default('').allow(''),
         validationOptions: {
           allowUnknown: false, // 控制是否允许环境变量中未知的键。默认为true。
           abortEarly: true, // 如果为true，在遇到第一个错误时就停止验证；如果为false，返回所有错误。默认为false。
