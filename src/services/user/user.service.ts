@@ -17,7 +17,7 @@ import { Logger } from '@/utils/log4js';
  * @Author: ahwgs
  * @Date: 2020-11-21 14:46:51
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-03 19:12:13
+ * @Last Modified time: 2020-12-03 19:24:25
  */
 
 @Injectable()
@@ -30,12 +30,17 @@ export class UserService {
   ) {}
 
   /**
-   *
-   * @param code 校验图形验证码是否正确
-   * @param codeId
+   * 校验图形验证码是否正确
+   * @param code 验证码
+   * @param codeId 验证码唯一id
    */
-  private chenckImageCaptcha(code: string, codeId: string): boolean {
-    return true;
+  private async chenckImageCaptcha(code: string, codeId: string) {
+    const key = `${RedisTemp.IMAGE_CAPTCHA}${codeId}`;
+    const data: string | null = await this.redisService.get(key);
+    if (!data) {
+      throw new ApiException('验证码已过期', ApiCodeEnum.WARN);
+    }
+    return code.toLocaleLowerCase() === data.toLocaleLowerCase();
   }
 
   /**
@@ -93,7 +98,7 @@ export class UserService {
     // 校验图形验证码
 
     const checkCode = await this.chenckImageCaptcha(code, codeId);
-    if (checkCode) {
+    if (!checkCode) {
       throw new ApiException('图形验证码不正确', ApiCodeEnum.WARN);
     }
 
