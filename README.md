@@ -22,6 +22,7 @@
 - ioredis redis 客户端
 - nestjs-redis nest redis 配置模块
 - uuid uuid 生成器
+- @nestjs-modules/mailer 邮箱发送
 
 ### 约束
 
@@ -96,3 +97,34 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, {
 ```
 
 通过重写`LoggerService`上的相关方法，实现 `Nest` 日志自定义
+
+- 邮箱配置提示报错
+
+因邮箱没区分环境，默认使用了一份配置，所以把邮箱配置忽略上传了，可参考根目录下 `default.email.env` 
+在项目`condif/env/` 下新建`email.env`文件
+
+- 验证码
+
+简单起见，登录验证码直接使用图形验证码+Redis实现
+注册验证码使用邮箱服务+mysql code表实现，为了安全建议邮箱验证码也使用Redis实现
+
+- 邮箱模版提示未找到文件
+
+需要修改`nest-cli.json`配置`assets`属性
+
+如：
+
+```json
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "assets": [
+      {
+        "include": "assets/email-template/**/*",
+        "watchAssets": true
+      }
+    ]
+  }
+}
+```

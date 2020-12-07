@@ -5,7 +5,13 @@
  * @Last Modified time: 2020-12-03 16:57:28
  */
 
-import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserAccountDTO {
@@ -58,4 +64,13 @@ export class RegisterDTO extends UserAccountDTO {
   @IsNotEmpty({ message: '验证码不能为空' })
   @IsString({ message: '验证码必须是 String 类型' })
   readonly code: string;
+}
+
+export class EmailDTO {
+  @ApiProperty({
+    name: 'email',
+  })
+  @IsNotEmpty({ message: '邮箱不能为空' })
+  @IsEmail({}, { message: '请输入正确的邮箱' })
+  readonly email: string;
 }

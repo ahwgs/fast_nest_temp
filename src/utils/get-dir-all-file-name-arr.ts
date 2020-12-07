@@ -52,5 +52,13 @@ export function getDirAllFileNameArr(options?: optionsType): string[] {
 export function initAppEnvFile() {
   const appStartEnv = process.env.APP_ENV || 'dev';
   const allEnvs = getDirAllFileNameArr();
-  return allEnvs.filter((v) => v.includes(appStartEnv))[0];
+  const result = [];
+  allEnvs.forEach((v) => {
+    if (v.includes('local.env') && v.includes(appStartEnv)) {
+      result.push(v);
+    } else if (!v.includes('local.env')) {
+      result.push(v);
+    }
+  });
+  return result;
 }

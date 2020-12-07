@@ -15,4 +15,5 @@ export const CommonText: IText = {
   PARAMES_MUST_NUM: '需为整数，当前输入的为：',
   FRONT_DATE: '开始时间',
   END_DATE: '结束时间',
+  REGISTER_CODE: '[Fast-Nest-Temp] Your Register Email Code',
 };

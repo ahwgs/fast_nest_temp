@@ -1,3 +1,4 @@
+import { CommonText } from './../../config/module/cmomon.text';
 import { DelEnum, StatusEnum } from '@/enum/common.enum';
 import { RedisTemp } from '@/config/module/redis-temp';
 import { RedisCacheService } from '@/services/common/redis/redis.cache.service';
@@ -7,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ApiException } from '@/exception/api-exception';
 import { ImageCaptchaService } from '@/services/common/code/img-captcha.service';
-import { RegisterDTO, LoginDTO } from '@/dtos/user/user.dto';
+import { RegisterDTO, LoginDTO, EmailDTO } from '@/dtos/user/user.dto';
 import { ApiCodeEnum } from '@/enum/api-code.enum';
 import * as bcrypt from 'bcrypt';
 import { getUUID } from '@/utils/common';
@@ -15,12 +16,14 @@ import { Logger } from '@/utils/log4js';
 import { IToken } from '@/interfaces/user.interface';
 import { JwtService } from '@/services/common/jwt/jwt.service';
 import { UserCodeEntity } from '@/entities/user-code.entity';
+import { EmailCodeService } from '@/services/common/code/email-code.service';
+import { IEmailParams } from '@/interfaces/common.interface';
 /*
  * 用户模块服务类
  * @Author: ahwgs
  * @Date: 2020-11-21 14:46:51
  * @Last Modified by: ahwgs
- * @Last Modified time: 2020-12-04 00:57:22
+ * @Last Modified time: 2020-12-04 16:11:08
  */
 
 @Injectable()
@@ -33,6 +36,7 @@ export class UserService {
     private readonly imageCaptchaService: ImageCaptchaService,
     private readonly redisService: RedisCacheService,
     private readonly jwt: JwtService,
+    private readonly email: EmailCodeService,
   ) {}
 
   /**
@@ -122,6 +126,8 @@ export class UserService {
         status: StatusEnum.N,
       },
     });
+    console.log('1111', result);
+
     // 如果验证码查出有 需要改状态
     if (result) {
       result.status = StatusEnum.Y;
@@ -186,5 +192,51 @@ export class UserService {
       sub: id,
     };
     return await this.signToken(tokenPayload);
+  }
+
+  /**
+   * 发送邮件
+   * @param body
+   */
+  public async emailCode(body: EmailDTO) {
+    const { email } = body;
+    let code = '';
+    // 查询有没有该账号并且还没被使用的code
+    const checkCode = await this.usersCodeResp.findOne({
+      where: {
+        account: email,
+        isDel: DelEnum.N,
+        status: StatusEnum.N,
+      },
+    });
+    if (checkCode) {
+      code = checkCode.code;
+    } else {
+      const captcha = this.imageCaptchaService.createSvgCaptcha();
+      const { text } = captcha || {};
+      // 自动生成
+      code = text;
+    }
+    Logger.info(`邮箱验证码：--->${email}----${code}`);
+    // 生成code
+    const params: IEmailParams = {
+      to: email,
+      title: CommonText.REGISTER_CODE,
+      content: code,
+      template: 'register',
+      context: {
+        code: code,
+      },
+    };
+    await this.email.sendEmail(params);
+    // 发送成功 插库
+    if (!checkCode) {
+      this.usersCodeResp.insert({
+        code,
+        account: email,
+        status: StatusEnum.N,
+      });
+    }
+    return true;
   }
 }

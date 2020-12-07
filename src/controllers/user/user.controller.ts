@@ -1,4 +1,4 @@
-import { RegisterDTO, LoginDTO } from '@/dtos/user/user.dto';
+import { RegisterDTO, LoginDTO, EmailDTO } from '@/dtos/user/user.dto';
 import { UserService } from '@/services/user/user.service';
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
@@ -34,5 +34,11 @@ export class UserController {
   @Post('login')
   async login(@Body() body: LoginDTO) {
     return this.userService.login(body);
+  }
+
+  @ApiOperation({ summary: '邮箱验证码', description: '邮箱验证码' })
+  @Post('email_code')
+  async registerEmail(@Body() body: EmailDTO) {
+    return this.userService.emailCode(body);
   }
 }
