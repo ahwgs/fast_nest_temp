@@ -1,4 +1,4 @@
-import { CommonText } from './../../config/module/cmomon.text';
+import { CommonText } from '@/config/module/cmomon.text';
 import { DelEnum, StatusEnum } from '@/enum/common.enum';
 import { RedisTemp } from '@/config/module/redis-temp';
 import { RedisCacheService } from '@/services/common/redis/redis.cache.service';
@@ -18,6 +18,7 @@ import { JwtService } from '@/services/common/jwt/jwt.service';
 import { UserCodeEntity } from '@/entities/user-code.entity';
 import { EmailCodeService } from '@/services/common/code/email-code.service';
 import { IEmailParams } from '@/interfaces/common.interface';
+import { AccountEnum } from '@/enum/user.enum';
 /*
  * 用户模块服务类
  * @Author: ahwgs
@@ -126,8 +127,6 @@ export class UserService {
         status: StatusEnum.N,
       },
     });
-    console.log('1111', result);
-
     // 如果验证码查出有 需要改状态
     if (result) {
       result.status = StatusEnum.Y;
@@ -161,6 +160,18 @@ export class UserService {
       password: hashPwd,
       passwordSalt: slat,
     });
+    if (accountType === AccountEnum.EMAIL) {
+      this.email.sendEmail({
+        to: account,
+        template: 'notice',
+        title: CommonText.REGISTER_SUCCESS,
+        content: '',
+        context: {
+          account,
+        },
+      } as IEmailParams);
+    }
+
     return true;
   }
 
