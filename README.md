@@ -81,6 +81,20 @@
 - 默认输出 `logs/access logs/app-out logs/errors`
 - 可修改 `module/log4js` 下配置
 
+### 守卫
+
+- `AuthGuard` 授权守卫
+
+对于要登录才能访问的接口，请使用该守卫进行校验
+
+在请求头中设置 `AuthToken : tokenxxx`
+
+### 装饰器
+
+- `@CurrentUser`
+
+获取当前登录用户信息
+
 ### 常见问题
 
 - 如何修改接口文档地址
