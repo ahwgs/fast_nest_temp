@@ -102,7 +102,6 @@ async function bootstrap() {
         },
       },
     });
-
     await app.listen(configService.get('SERVE_LISTENER_PORT'));
   } catch (err) {
     throw err;

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "assets": [
       {
-        "include": "assets/email-template/**/*",
+        "include": "assets/**/*",
         "watchAssets": true
       }
     ]

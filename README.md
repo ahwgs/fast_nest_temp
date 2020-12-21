@@ -1,6 +1,6 @@
 ## Fast-nest-temp
 
-### 介绍
+## 介绍
 
 基于`Nest.js@7.x`快速构建 Web 应用
 
@@ -23,6 +23,17 @@
 - nestjs-redis nest redis 配置模块
 - uuid uuid 生成器
 - @nestjs-modules/mailer 邮箱发送
+
+
+
+
+### 如何使用
+
+- 复制根目录下`default.env`文件，重命名为`.env`文件，修改其配置
+- `yarn start:dev` 开始开发
+- `yarn start:debug` 开始debug模式
+- `yarn commit` 用于提交代码，默认遵循业内规则
+- `yarn start` 启动项目
 
 ### 约束
 
@@ -72,21 +83,13 @@
 
 ### 常见问题
 
-- 关于环境变量
-
-  默认是根据`package.json`内脚本的`APP_ENV`判断环境，然后匹配根目录下`config/env/xx.local.env`文件
-
 - 如何修改接口文档地址
 
-  设置`config/env/xx.local.env`文件内相应环境变量
+  设置`.env`文件内相应环境变量
 
 - 如何修改启动 banner
 
   目前启动`banner`读取的是`src/assets/banner.txt`,自行修改该文件即可
-
-- 生产环境如何设置环境变量
-
-  复制根目录下`default.local.env` 文件至`config/env/`目录下，修改相应配置为生产环境配置
 
 - 使用 log4js 作为默认日志库
 

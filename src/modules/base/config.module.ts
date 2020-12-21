@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { initAppEnvFile } from '@/utils/get-dir-all-file-name-arr';
 import envSwaggerConfig from '@/config/env/swagger.config';
 import envDataBaseConfig from '@/config/env/databse.config';
 import envRedisConfig from '@/config/env/redis.config';
@@ -11,7 +10,6 @@ import envJwtConfig from '@/config/env/jwt.config';
   imports: [
     ConfigModule.forRoot({
       encoding: 'utf-8',
-      envFilePath: initAppEnvFile(),
       load: [
         envSwaggerConfig,
         envDataBaseConfig,
