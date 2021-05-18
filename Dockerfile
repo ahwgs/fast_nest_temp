@@ -1,19 +1,15 @@
-FROM node
+FROM node:12
 
-MAINTAINER ahwgs <ah_wgs@126.com>
+WORKDIR /app
 
-COPY --chown=app:app . /app/src
 
-# RUN cd /app/src && \
-#   rm -rf node_modules && \
-#   npm install cnpm --registry=https://registry.npm.taobao.org && \
-#   cnpm run install && \
-#   cnpm run build && \
-#   cnpm run start && \
-#   rm -rf node_modules 
+COPY package*.json ./
 
-RUN cd /app/src && \
-  npm run build && \
-  rm -rf node_modules 
 
-WORKDIR /app/src
+COPY . .
+
+RUN npm install
+RUN npm run build
+
+EXPOSE 3000
+CMD [ "npm", "run","start" ]
