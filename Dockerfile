@@ -1,15 +1,11 @@
 FROM node:12
 
-WORKDIR /app
+WORKDIR /app/src
 
+COPY ./ /app/src
 
-COPY package*.json ./
-
-
-COPY . .
-
-RUN npm install
-RUN npm run build
+RUN npm install &&  npm run build && rm node_modules -rf
 
 EXPOSE 3000
-CMD [ "npm", "run","start" ]
+
+CMD ["npm","run","start"]
